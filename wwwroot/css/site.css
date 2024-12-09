@@ -1,0 +1,95 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.card-container {
+    perspective: 1000px;
+    width: 200px;
+    height: 300px;
+    margin: 20px auto;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.card-inner.revealed {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+}
+
+.card-back {
+    background: linear-gradient(45deg, #1a1a1a, #4a4a4a);
+    transform: rotateY(180deg);
+}
+
+.tarot-home {
+    background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+    color: #fff;
+    padding: 5rem 1rem;
+    min-height: calc(100vh - 180px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tarot-home h1 {
+    font-family: 'Playfair Display', serif;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.tarot-home .lead {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: #e0e0e0;
+}
+
+.btn-linkedin {
+    background-color: #0077b5;
+    color: white;
+}
+
+.btn-linkedin:hover {
+    background-color: #006396;
+    color: white;
+}
+
+.social-links .btn {
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    transition: transform 0.2s;
+}
+
+.social-links .btn:hover {
+    transform: translateY(-3px);
+}

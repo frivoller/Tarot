@@ -1,0 +1,122 @@
+@model Reading
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Tarot Okuması</h1>
+    
+    <div class="row" id="cardSelection" style="@(Model.IsCompleted ? "display:none" : "")">
+        <div class="col-md-4 text-center">
+            <h3>Geçmiş</h3>
+            <button class="btn btn-primary select-card" data-position="Past">Kart Seç</button>
+        </div>
+        <div class="col-md-4 text-center">
+            <h3>Şimdi</h3>
+            <button class="btn btn-primary select-card" data-position="Present">Kart Seç</button>
+        </div>
+        <div class="col-md-4 text-center">
+            <h3>Gelecek</h3>
+            <button class="btn btn-primary select-card" data-position="Future">Kart Seç</button>
+        </div>
+    </div>
+
+    <div class="row mt-4" id="selectedCards">
+        <!-- Seçilen kartlar buraya dinamik olarak eklenecek -->
+    </div>
+
+    <div class="text-center mt-4">
+        <button id="revealCards" class="btn btn-success" style="display:none">Kartları Aç</button>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('.select-card').click(function() {
+                var position = $(this).data('position');
+                var button = $(this);
+                
+                $.post('/Tarot/SelectCard', { position: position }, function(response) {
+                    if (response.success) {
+                        button.prop('disabled', true);
+                        updateSelectedCards();
+                        
+                        if (response.cardsSelected === 3) {
+                            $('#revealCards').show();
+                        }
+                    }
+                });
+            });
+
+            $('#revealCards').click(function() {
+                $.post('/Tarot/RevealCards', function(response) {
+                    if (response.success) {
+                        $('#cardSelection').hide();
+                        $('#revealCards').hide();
+                        displayRevealedCards(response.cards);
+                    }
+                });
+            });
+        });
+
+        function updateSelectedCards() {
+            $.get('/Tarot/GetSelectedCards', function(cards) {
+                $('#selectedCards').empty();
+                cards.forEach(function(card) {
+                    var cardHtml = `
+                        <div class="col-md-4">
+                            <div class="card-container">
+                                <div class="card-inner">
+                                    <div class="card-front">
+                                        <img src="/images/cards/back.jpg" alt="Kart Arkası" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                            <h4 class="text-center mt-2">${getPositionText(card.position)}</h4>
+                        </div>
+                    `;
+                    $('#selectedCards').append(cardHtml);
+                });
+            });
+        }
+
+        function displayRevealedCards(cards) {
+            $('#selectedCards').empty();
+            cards.forEach(function(card) {
+                var cardHtml = `
+                    <div class="col-md-4">
+                        <div class="card-container">
+                            <div class="card-inner revealed">
+                                <div class="card-front">
+                                    <img src="/images/cards/back.jpg" alt="Kart Arkası" class="img-fluid">
+                                </div>
+                                <div class="card-back">
+                                    <img src="${card.imageUrl}" alt="${card.name}" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <h5 class="card-title">${card.name}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">${getPositionText(card.position)}</h6>
+                                <p class="card-text">${card.meaning}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                $('#selectedCards').append(cardHtml);
+            });
+        }
+
+        function getPositionText(position) {
+            switch(position) {
+                case 'Past':
+                    return 'Geçmiş';
+                case 'Present':
+                    return 'Şimdi';
+                case 'Future':
+                    return 'Gelecek';
+                default:
+                    return position;
+            }
+        }
+    </script>
+} 
