@@ -1,3 +1,6 @@
+/* fontlar*/
+@import url('https://fonts.googleapis.com/css2?family=Pirata+One&family=Almendra:wght@400;700&display=swap');
+
 html {
   font-size: 14px;
 }
@@ -18,44 +21,79 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+  font-family: 'Almendra', serif;
+  margin-bottom: 35px;
+}
+
+.navbar {
+  background: linear-gradient(to right, #2d1b36, #1a0f22) !important;
+  border-bottom: 1px solid #4a1942 !important;
+}
+
+.navbar-brand, .nav-link {
+  color: #e0e0e0 !important;
+  font-family: 'Pirata One', cursive;
+  font-size: 1.2rem;
 }
 
 .card-container {
     perspective: 1000px;
-    width: 200px;
-    height: 300px;
-    margin: 20px auto;
+    transition: transform 0.3s ease;
 }
 
-.card-inner {
+.selected-card {
+    min-height: 180px;
+    width: 120px;
+    border: 2px dashed #4a1942;
+    border-radius: 10px;
+    margin: 5px auto;
+    background: rgba(45, 27, 54, 0.3);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+.selected-card.has-card {
+    min-height: 300px;
+    width: 180px;
+}
+
+.selected-card.has-card .card-container {
+    width: 250px !important;
+    height: 400px !important;
+}
+
+.selected-card .card-container {
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+}
+
+.selected-card .card-inner {
     position: relative;
     width: 100%;
     height: 100%;
-    transition: transform 0.8s;
-    transform-style: preserve-3d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.card-inner.revealed {
-    transform: rotateY(180deg);
-}
-
-.card-front, .card-back {
-    position: absolute;
+.selected-card img {
     width: 100%;
     height: 100%;
-    backface-visibility: hidden;
+    object-fit: contain;
     border-radius: 10px;
 }
 
-.card-back {
-    background: linear-gradient(45deg, #1a1a1a, #4a4a4a);
-    transform: rotateY(180deg);
-}
-
 .tarot-home {
-    background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
-    color: #fff;
+    background: linear-gradient(135deg, #2d1b36 0%, #1a0f22 50%, #4a1942 100%);
+    color: #e0e0e0;
     padding: 5rem 1rem;
     min-height: calc(100vh - 180px);
     display: flex;
@@ -64,14 +102,15 @@ body {
 }
 
 .tarot-home h1 {
-    font-family: 'Playfair Display', serif;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    font-family: 'Pirata One', cursive;
+    text-shadow: 2px 2px 4px rgba(74, 25, 66, 0.6);
+    color: #d4af37;
 }
 
 .tarot-home .lead {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Almendra', serif;
     font-size: 1.5rem;
-    color: #e0e0e0;
+    color: #c0c0c0;
 }
 
 .btn-linkedin {
@@ -92,4 +131,301 @@ body {
 
 .social-links .btn:hover {
     transform: translateY(-3px);
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    z-index: 1000;
+}
+
+.footer a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: #1b6ec2;
+}
+
+.card-container.dragging {
+    opacity: 0.5;
+    cursor: grabbing;
+}
+
+.drop-zone {
+    min-height: 320px;
+    border: 2px dashed #4a1942;
+    border-radius: 10px;
+    margin: 10px;
+    transition: all 0.3s ease;
+    background: rgba(45, 27, 54, 0.3);
+}
+
+.drop-zone.drag-over {
+    background: rgba(74, 25, 66, 0.3);
+    border-color: #d4af37;
+    transform: scale(1.02);
+}
+
+#deckCard {
+    cursor: grab;
+}
+
+#deckCard:active {
+    cursor: grabbing;
+}
+
+.deck-area {
+    position: relative;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.card-container {
+    flex: 0 0 150px;
+    max-width: 150px;
+    height: 180px;
+    margin: 0 15px;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-container.dragging {
+    opacity: 0.8;
+    cursor: grabbing;
+}
+
+.drop-zone {
+    height: 200px;
+    border: 2px dashed #4a1942;
+    border-radius: 10px;
+    margin: 10px;
+    transition: all 0.3s ease;
+    background: rgba(45, 27, 54, 0.3);
+}
+
+.drop-zone.drag-over {
+    background: rgba(74, 25, 66, 0.3);
+    border-color: #d4af37;
+    transform: scale(1.05);
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #2d1b36, #4a1942);
+    border: none;
+    color: #d4af37;
+    padding: 12px 24px;
+    font-family: 'Almendra', serif;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.btn-primary i {
+    margin-right: 8px;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #4a1942, #2d1b36);
+    color: #d4af37;
+    transform: translateY(-2px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+#selectCard {
+    cursor: pointer;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 200px;
+}
+
+.card-inner:hover {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.deck-carousel {
+    position: relative;
+    padding: 0 40px;
+    margin-top: 250px !important;
+    margin-bottom: 1rem;
+}
+
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(74, 25, 66, 0.7);
+    border: none;
+    color: #d4af37;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-arrow.prev { left: 0; }
+.carousel-arrow.next { right: 0; }
+
+.cards-container {
+    width: 200px;
+    height: 300px;
+    position: relative;
+}
+
+.selected-card {
+    min-height: 300px;
+    margin: 10px;
+    transition: all 0.3s ease;
+}
+
+.selected-card.has-card {
+    background: none;
+}
+
+@media (max-width: 1200px) {
+    .card-container {
+        flex: 0 0 calc((100% - 80px) / 5); /* 5 kart görünsün */
+        max-width: calc((100% - 80px) / 5);
+    }
+}
+
+@media (max-width: 768px) {
+    .card-container {
+        flex: 0 0 calc((100% - 60px) / 3); /* 3 kart görünsün */
+        max-width: calc((100% - 60px) / 3);
+    }
+}
+
+.card-body {
+    background: linear-gradient(45deg, #2d1b36, #4a1942);
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 5px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 20px;
+}
+
+.card-title {
+    font-family: 'Pirata One', cursive;
+    color: #d4af37;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.card-subtitle {
+    font-family: 'Almendra', serif;
+    color: #c0c0c0;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.card-text {
+    font-family: 'Almendra', serif;
+    color: #d4af37;
+    font-size: 1.1rem;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.card {
+    background: transparent;
+    border: none;
+}
+
+.cards-carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 10px;
+    padding: 20px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.cards-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.cards-carousel .card-container {
+    flex: 0 0 100px;
+    height: 160px;
+    margin: 0;
+    position: relative;
+}
+
+.selected-card {
+    min-height: 600px;
+    width: 400px;
+    border: 2px dashed #4a1942;
+    border-radius: 10px;
+    margin: 10px;
+    background: rgba(45, 27, 54, 0.3);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.selected-card .card-container {
+    width: 400px !important;
+    height: 640px !important;
+    margin: 0;
+    perspective: 1000px;
+}
+
+.selected-card .card-container img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain;
+}
+
+.container.mt-5 {
+    margin-top: 1rem !important;
+}
+
+h1.text-center.mb-4 {
+    margin-bottom: 1rem !important;
+    font-size: 1.8rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.deck-carousel {
+    margin-top: 1rem !important;
 }

@@ -9,7 +9,7 @@ namespace TarotApp.Controllers
     {
         private static readonly List<Card> _deck = new List<Card>
         {
-            // Büyük Arkanalar
+            // buyuk arkanalar
             new Card { Id = 0, Name = "Fool (Deli)", ImageUrl = "/images/cards/fool.jpg", 
                 Meaning = "Yeni başlangıçlar, saflık, spontanelik, özgür ruh" },
             new Card { Id = 1, Name = "Magician (Sihirbaz)", ImageUrl = "/images/cards/magician.jpg", 
@@ -68,7 +68,7 @@ namespace TarotApp.Controllers
         public IActionResult SelectCard(string position)
         {
             if (_currentReading.SelectedCards.Count >= 3)
-                return BadRequest("Zaten 3 kart seçildi");
+                return Json(new { success = false, message = "Zaten 3 kart seçildi" });
 
             var availableCards = _deck.Where(c => !_currentReading.SelectedCards.Any(sc => sc.Id == c.Id)).ToList();
             var randomCard = availableCards[new Random().Next(availableCards.Count)];
@@ -77,7 +77,11 @@ namespace TarotApp.Controllers
 
             _currentReading.SelectedCards.Add(randomCard);
 
-            return Json(new { success = true, cardsSelected = _currentReading.SelectedCards.Count });
+            return Json(new { 
+                success = true, 
+                selectedCard = randomCard,
+                cardsSelected = _currentReading.SelectedCards.Count 
+            });
         }
 
         [HttpPost]
