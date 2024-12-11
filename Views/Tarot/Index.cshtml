@@ -24,7 +24,7 @@
         </button>
         
         <div id="cardsContainer" class="cards-carousel">
-            @for (int i = 0; i < 22; i++)
+            @for (int i = 0; i < 10; i++)
             {
                 <div class="card-container">
                     <div class="card-inner">
@@ -145,7 +145,6 @@
                 });
             }
 
-            // Touch olayları icin yardımcı fonksiyonlar
             function handleTouchStart(e) {
                 const touch = e.touches[0];
                 handleDragStart({
